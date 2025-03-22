@@ -10,9 +10,22 @@
                     <div class="card h-100 shadow-sm">
                         <img src="{{ product.image_path|default:'https://i0.wp.com/junilearning.com/wp-content/uploads/2020/06/python-programming-language.webp?fit=800%2C800&ssl=1' }}"
                         alt="{{product.name}}" class="card-img-top" style="width: 50px; height: 50px;">
-                        <div class="card-body">
-                            <h5 class="card-title"> {{product.name}}</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            {% if not product.available %}
+                                <span class="text-secondary">Not available</span>
+                            {% endif %}
                         </div>
+                        <div class="product-rating">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= product.rating %}
+                                    <i class="bi bi-star-fill text-warning"></i> 
+                                {% else %}
+                                    <i class="bi bi-star text-muted"></i> 
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
                         {% if product.discount %}
                             <span class="text-success">
                                 ${{ product.price|calculate_discount:product.discount}} 
