@@ -9,19 +9,25 @@ def index(request):
     filter_name = request.GET.get("filter")
 
     categories = Category.objects.all()
+
     if category_name:
-        products = products.filter(category_name)
-    
-    if filter_name == "price_increase":
-        products = products.order_by("price")
-    elif filter_name == "price_decrease":
-        products = products.order_by("-price")
-        
+        category = Category.objects.get(name=category_name)
+        products = products.filter(category=category)
+
+    match filter_name:
+        case "price_increase":
+            products = products.order_by("price")
+        case "price_decrease":
+            products = products.order_by("-price")
+        case "rating_increase":
+            products = products.order_by("rating")
+        case "rating_decrease":
+            products = products.order_by("-rating")
 
     context = {
-                "products": products,
-                "categories": categories
-            }
+        "products": products,
+        "categories": categories
+    }
     return render(request, "index.html", context=context)
 
 def about(request):
