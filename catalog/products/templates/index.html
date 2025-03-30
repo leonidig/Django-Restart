@@ -2,10 +2,22 @@
 
 {% load math_filters %}
 {% block content %}
-    <h1>
+<div class='container'>
+<br>
+<br>
+    <h1 class='text-center'>
         Catalog of products
     </h1>
-    <div class="row row-cols-1 row-cols-md3 g-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+         {% if products_count > 0 %}
+            <p class="text-center" style="font-size: 1.2rem; font-weight: bold; color: #28a745;">
+                <i class="bi bi-check-circle-fill"></i> Found {{ products_count }} products
+            </p>
+        {% else %}
+            <p class="text-center" style="font-size: 1.2rem; font-weight: bold; color: #dc3545;">
+                <i class="bi bi-x-circle-fill"></i> No products available
+            </p>
+        {% endif %}
         {% for product in products %}
             <div class="col">
                 <div class="card h-100 shadow-sm">
@@ -49,5 +61,6 @@
                 </div>
             </div>
         {% endfor %}
+</div>
 </div>
 {% endblock %}
