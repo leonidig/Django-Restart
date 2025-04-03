@@ -69,6 +69,17 @@
 
 
                 </form>
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:profile' %}">{{ request.user.username }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:logout' %}">Log Out</a></li>
+                {% else %}
+                    <li class="nav-item"><a href="{% url 'accounts:register' %}" class="navbar-brand text-light">Register</a></li>
+                    <li class="nav-item"><a href="{% url 'accounts:login' %}" class="navbar-brand text-light">Login</a></li>
+                {% endif %}
+                            
+
+
+                </div>
                 </div>
             </div>
         </nav>
@@ -86,3 +97,12 @@
     
 </body>
 </html>
+
+
+
+
+<!-- {% if products_count > 0 %}
+    <p>Found {{ products_count }} products</p> 
+{% else %}
+    <p>No products available</p> 
+{% endif %} -->
