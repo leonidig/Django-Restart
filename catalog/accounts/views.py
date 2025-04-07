@@ -26,7 +26,7 @@ def login_view(request):
         if user:
             login(request, user)
             next_url = request.GET.get('next')
-            return redirect(next_url or 'products:home')
+            return redirect(next_url or 'products:index')
         else:
             return render(request, 'login.html', context={'error': 'Incorrect login or password'})
     return render(request, 'login.html')
@@ -35,6 +35,7 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect("products:index")
+
 
 @login_required
 def profile(request):
