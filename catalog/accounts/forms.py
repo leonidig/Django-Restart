@@ -4,7 +4,10 @@ from django.contrib.auth.models import User
 from captcha.fields import CaptchaField
 
 
+<<<<<<< HEAD
 # Create your models here.
+=======
+>>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
     captcha = CaptchaField()
@@ -12,6 +15,7 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         extra_fields = ["email"]
+<<<<<<< HEAD
         fields = ["username", "password1", "password2", "email"]
 
 
@@ -31,3 +35,6 @@ class ProfileUpdateForm(forms.Form):
         super().__init__(*args, **kwargs)
         if self.user:
             self.fields["email"].initial = self.user.email
+=======
+        fields = ["username", "password1", "password2", "email"]
+>>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf

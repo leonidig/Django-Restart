@@ -1,4 +1,5 @@
 from django.db import models
+<<<<<<< HEAD
 from django.contrib.auth.models import User
 
 
@@ -6,3 +7,6 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to="avatars/", default="avatars/bodya.jpg", blank=True)
     
+=======
+
+>>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf
