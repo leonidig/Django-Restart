@@ -1,23 +1,11 @@
 {% extends 'base.html' %} {% block content %}
-<<<<<<< HEAD
 <br><br><br>
-        <br><br><br>   
+<br><br><br>   
 <div class="container mt-5">
   <h2>Registration Form</h2>
   <form method="POST">
     {% csrf_token %} {{form.as_p}}
     <input type="submit" class="btn btn-primary" value="Register" />
-=======
-
-<div class="container mt-5">
-  <br><br><br>
-  <br><br><br>
-  <br><br><br>
-  <h2>Registration Form</h2>
-  <form method="POST">
-    {% csrf_token %} {{form.as_p}}
-    <input type="submit" class="btn btn-primary" value="Register"/>
->>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf
   </form>
 </div>
 {% endblock %}

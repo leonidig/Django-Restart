@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.shortcuts import render, redirect
 from django.http import HttpResponseBadRequest
 from django.contrib.auth import login, authenticate, logout
@@ -10,14 +9,7 @@ from django.urls import reverse
 
 from .forms import ProfileUpdateForm, RegisterForm
 from .models import Profile
-=======
-
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import login_required
-
-from .forms import RegisterForm
->>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf
+from .utils import send_confirmation_mail
 
 
 def register(request):
@@ -25,7 +17,7 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            send_confirmation_mail(request, user, user.email, "confirm_registration")
             return redirect("products:index")
     else:
         form = RegisterForm()
@@ -33,7 +25,6 @@ def register(request):
 
 
 def login_view(request):
-<<<<<<< HEAD
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -60,14 +51,17 @@ def edit_profile_view(request):
             # user.email = new_email
             # user.save()
             if new_email != user.email:
-                confirm_url = request.build_absolute_uri(reverse("confirm_email"))
-                confirm_url += f"?user={user.id}&email={new_email}"
-                subject = "Confirm new email"
-                message = f"Hello, {user.username} you want to change your email? Confirm your email on link: {confirm_url}"
-                send_mail(
-                    subject, message, "no-reply", [new_email], fail_silently=False
-                )
-                messages.info(request, "Confirmation email was send")
+                send_confirmation_mail(request, user, new_email, "confirm_email")
+                # confirm_url = request.build_absolute_uri(
+                #     reverse("accounts:confirm_email")
+                # )
+                # confirm_url += f"?user={user.id}&email={new_email}"
+                # subject = "Confirm new email"
+                # message = f"Hello, {user.username} you want to confirm your email? Confirm your email on link: {confirm_url}"
+                # send_mail(
+                #     subject, message, "no-reply", [new_email], fail_silently=False
+                # )
+                # messages.info(request, "Confirmation email was send")
 
             avatar = form.cleaned_data.get("avatar")
             if avatar:
@@ -79,19 +73,6 @@ def edit_profile_view(request):
     return render(
         request, "edit_profile.html", context={"form": form, "profile": profile}
     )
-=======
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user:
-            login(request, user)
-            next_url = request.GET.get('next')
-            return redirect(next_url or 'products:index')
-        else:
-            return render(request, 'login.html', context={'error': 'Incorrect login or password'})
-    return render(request, 'login.html')
->>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf
 
 
 def logout_view(request):
@@ -101,7 +82,6 @@ def logout_view(request):
 
 @login_required
 def profile(request):
-<<<<<<< HEAD
     profile, _ = Profile.objects.get_or_create(user=request.user)
     return render(request, "profile.html", {"profile": profile})
 
@@ -111,11 +91,11 @@ def confirm_email(request):
     email = request.GET.get("email")
 
     if not user_id or not email:
-        return HttpResponseBadRequest("BAD REQUEST: No user or email")
+        return HttpResponseBadRequest("Bad request: No user / Email")
     try:
         user = User.objects.get(id=user_id)
     except User.DoesNotExist:
-        return HttpResponseBadRequest("BAD REQUEST: No user or email")
+        return HttpResponseBadRequest("Bad request: No user / Email")
 
     if User.objects.filter(email=email).exists():
         return HttpResponseBadRequest("This email already taken")
@@ -124,6 +104,19 @@ def confirm_email(request):
     user.save()
 
     return render(request, "email_change_done.html", {"email": email})
-=======
-    return render(request, "profile.html")
->>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf
+
+
+def confirm_registration(request):
+    user_id = request.GET.get("user")
+    email = request.GET.get("email")
+
+    if not user_id or not email:
+        return HttpResponseBadRequest("Bad request: No user / Email")
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return HttpResponseBadRequest("Bad request: No user / Email")
+
+
+    login(request, user)
+    return render(request, "email_change_done.html", {"email": email})

@@ -1,27 +1,15 @@
 {% extends 'base.html' %}
 
-<<<<<<< HEAD
 {% block content %}
 <br><br><br>
 <br><br><br>
     <h2>Profile-{{ request.user.username }}</h2>
     <ul>
         <img src="{{ profile.avatar.url }}" alt="avatar" width="150">
-=======
-{% block content %} 
-<br><br><br>
-<br><br><br>
-<br><br><br>
-    <h2>Profile</h2>
-    <ul>
->>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf
         <li>Username: {{ request.user.username }}</li>
         <li>Email: {{ request.user.email }}</li>
     </ul>
     <a href="{% url 'accounts:password_change' %}" class="btn btn-primary">Change Password</a>
-<<<<<<< HEAD
     <a href="{% url 'accounts:edit_profile' %}">Edit Profile</a>
     
-=======
->>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf
 {% endblock %}

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """
 Django settings for catalog project.
 
@@ -12,9 +11,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
-=======
-
->>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,11 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-<<<<<<< HEAD
 SECRET_KEY = "django-insecure-x354v0#*xse%v+657s58#yuicvj3z1ds8p31tlvje5(@a09gu^"
-=======
-SECRET_KEY = 'django-insecure-d6#sm!7u(f@@kw14wk2o&=3(rzt5mb-e%*a-kt=9t&8_6$pb8t'
->>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-<<<<<<< HEAD
     "products",
     "accounts",
     "captcha",
@@ -75,67 +66,21 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-=======
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'products',
-    "accounts",
-    "captcha"
-]
-
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-ROOT_URLCONF = 'catalog.urls'
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
->>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf
             ],
         },
     },
 ]
 
-<<<<<<< HEAD
 WSGI_APPLICATION = "catalog.wsgi.application"
-=======
-WSGI_APPLICATION = 'catalog.wsgi.application'
->>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf
 
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-<<<<<<< HEAD
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-=======
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
->>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf
     }
 }
 
@@ -145,7 +90,6 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-<<<<<<< HEAD
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
@@ -156,18 +100,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-=======
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
->>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf
     },
 ]
 
@@ -175,15 +107,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-<<<<<<< HEAD
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
-=======
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
->>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf
 
 USE_I18N = True
 
@@ -193,7 +119,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-<<<<<<< HEAD
 STATIC_URL = "static/"
 MEDIA_URL = "media/"
 # MEDIA_URL = "../media/"
@@ -205,19 +130,13 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# EMAIL_BACKEND = "django.core.mail.beckends.console.EmailBackend"
-# EMAIL_BACKEND = "django.core.mail.beckends.smtp.EmailBackend"
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
 # EMAIL_HOST = "smtp.gmail.com"
 # EMAIL_PORT = 587
-# EMAIL_HOST_USER = "leonid200955@gmail.com"
-# EMAIL_HOST_PASSWORD = "PASS"
+# EMAIL_HOST_USER = ""
+# EMAIL_HOST_PASSWORD = ""
 # EMAIL_USE_TLS = True
-# DEFAULT_FROM_EMAIL = "My shop leonid200955@gmail.com"
-=======
-STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
->>>>>>> 4b18188892c36b6b01568f971ad0f2cd895fdbbf
+# DEFAULT_FROM_EMAIL = ""
