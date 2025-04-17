@@ -57,6 +57,7 @@
                         {% endif %}
                         <br>
                         <a href="{% url 'products:product_details' product.id%}" class="btn btn-primary">More</a>
+                        <a href="{% url 'products:cart_add' product.id%}" class="btn btn-primary">Add to cart</a>
                     </div>
                 </div>
             </div>
