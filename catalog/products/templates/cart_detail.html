@@ -21,9 +21,15 @@
                     {% for item in cart_items %}
                         <tr>
                             <td>{{ item.product.name }}</td>
-                            <td>{{ item.amount }}</td>
-                            <td>${{ item.product.price }}</td>
-                            <td><a href="{% url 'products:remove_item' item.product_id %}" class='btn btn-sm bnt-outline-danger' title='Remove item'> x </a></td>
+                            <td>
+                                <a href="{% url 'products:cart_remove' item.product.id %}" class="btn btn-danger">−</a>
+                                {{ item.amount }}
+                                <a href="{% url 'products:cart_add' item.product.id %}" class="btn btn-success">+</a>
+                            </td>
+                            <td>${{ item.product.price|floatformat:2 }}</td>
+                            <td>
+                                <a href="{% url 'products:remove_item_from_cart' item.product.id %}" class="btn btn-danger">Remove</a>
+                            </td>
                         </tr>
                     {% endfor %}
                     <tr class='table-secondary'>

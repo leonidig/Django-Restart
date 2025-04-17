@@ -76,19 +76,16 @@ def product_details(request, product_id):
     return render(request, "product_details.html", {"product": product})
 
 
+
 def cart_add(request, product_id: int):
     product = get_object_or_404(Product, id=product_id)
-
     if not request.user.is_authenticated:
         cart = request.session.get(settings.CART_SESSION_ID, dict())
-        product_id_str = str(product_id)
-        if product_id_str in cart:
-            cart[product_id_str] += 1
+        if cart.get(product_id):
+            cart[product_id] += 1
         else:
-            cart[product_id_str] = 1
+            cart[product_id] = 1
         request.session[settings.CART_SESSION_ID] = cart
-        return redirect("products:cart_detail")
-
     else:
         cart, _ = Cart.objects.get_or_create(user=request.user)
         cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
@@ -97,8 +94,32 @@ def cart_add(request, product_id: int):
         else:
             cart_item.amount += 1
         cart_item.save()
-        return redirect("products:cart_detail")
+    return redirect("products:cart_detail")
 
+
+def cart_remove(request, product_id: int):
+    product = get_object_or_404(Product, id=product_id)
+    if not request.user.is_authenticated:
+        cart = request.session.get(settings.CART_SESSION_ID, dict())
+        if str(product_id) in cart:
+            if cart[str(product_id)] > 1:
+                cart[str(product_id)] -= 1
+            else:
+                cart.pop(str(product_id))
+            request.session[settings.CART_SESSION_ID] = cart
+    else:
+        try:
+            cart = request.user.cart
+            cart_item = CartItem.objects.get(cart=cart, product=product)
+            if cart_item.amount > 1:
+                cart_item.amount -= 1
+                cart_item.save()
+            else:
+                cart_item.delete()
+        except CartItem.DoesNotExist:
+            ...
+    
+    return redirect("products:cart_detail")
 
 def cart_detail_view(request):
     if not request.user.is_authenticated:
@@ -117,7 +138,6 @@ def cart_detail_view(request):
             "cart_detail.html",
             context={"cart_items": cart_items, "total_price": total_price},
         )
-    
     else:
         try:
             cart = request.user.cart
@@ -136,7 +156,7 @@ def cart_detail_view(request):
         )
 
 
-def remove_item_from_cart(request, item_id: int):
+def remove_item_from_cart(request, item_id: int): # soon
     product = get_object_or_404(Product, id=item_id)
 
     if not request.user.is_authenticated:
