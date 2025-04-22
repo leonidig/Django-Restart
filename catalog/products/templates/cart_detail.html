@@ -28,7 +28,8 @@
                             </td>
                             <td>${{ item.product.price|floatformat:2 }}</td>
                             <td>
-                                <a href="{% url 'products:remove_item_from_cart' item.product.id %}" class="btn btn-danger">Remove</a>
+                                <a href="{% url 'products:cart_remove' item.product.id %}?remove_all=1" class="btn btn-danger">Remove</a>
+
                             </td>
                         </tr>
                     {% endfor %}
