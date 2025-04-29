@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from django.contrib.auth import views as auth_views
 
-from .views import register, login_view, logout_view, profile, edit_profile_view, confirm_email
+from .views import register, login_view, logout_user, profile, edit_profile_view, confirm_email
 
 app_name = 'accounts'
 
@@ -13,7 +13,7 @@ urlpatterns = [
     
     path("login/", login_view, name="login"),
     
-    path("logout/", logout_view, name="logout"),
+    path("logout/", logout_user, name="logout_user"),
     
     path("profile/", profile, name="profile"),
     

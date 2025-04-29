@@ -1,5 +1,6 @@
 
-
+from os import getenv
+from dotenv import load_dotenv
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -10,7 +11,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)wd9)%-ekpyb!=ab2u0vm37fuu_pj&81v=g72s!5_mcv4t@#l&'
+load_dotenv()
+SECRET_KEY = getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -29,8 +31,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'products.apps.ProductsConfig',
     'accounts.apps.AccountsConfig',
-    'captcha'
+    'captcha',
+    'rest_framework',
+    'drf_spectacular'
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -47,7 +53,7 @@ ROOT_URLCONF = 'catalog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/'catalog/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,5 +132,26 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # EMAIL_HOST_PASSWORD = "examplePassword"
 # EMAIL_USE_TLS = True
 # DEFAULT_FROM_EMAIL = "My shop example@gmail.com"
-
+ADMIN_EMAIL = "admin@gmail.com"
+DEFAULT_FROM_EMAIL = "noreply@gmail.com"
 CART_SESSION_ID = "cart"
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication"
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly"
+    ]
+
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "catalogAPI",
+    "DESCRIPTION": "API for my app",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False
+}
