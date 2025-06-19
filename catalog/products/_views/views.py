@@ -128,6 +128,7 @@ def cart_detail(request):
                 cart_items.append({"product": product, "count": count, "price": price})
     return render(request, "cart_detail.html", context={"cart_items": cart_items, "total_price" : round(total_price,2)})
 
+
 def cart_add(request, product_id:int):
     product = get_object_or_404(Product, id=product_id)
     if not request.user.is_authenticated:
