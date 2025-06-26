@@ -34,4 +34,6 @@ jobs:
         pytest -s
     - name: Build Docker image
       run: |
+        cd catalog/
         docker build -t catalog .
+        
