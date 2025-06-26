@@ -28,11 +28,10 @@ jobs:
         pip install -r requirements.txt
     - name: Export .env variables
       run: |
-          echo "SECRET_KEY=${{ vars.SECRET_KEY }}" >> .env
+          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
     - name: Run Tests
       run: |
         pytest -s
     - name: Build Docker image
       run: |
         docker build -t catalog .
-        docker run -p 8000:8000 -d --name catalog catalog
